@@ -1,8 +1,13 @@
 "use client";
-import { Post } from "@/app/generated/prisma/client";
 import { redirect } from "next/navigation";
 
-export default function PostCard({ post }: { post: Post }) {
+import { Prisma } from "@/app/generated/prisma/client";
+
+type PostWithAuthor = Prisma.PostGetPayload<{
+  include: { author: true };
+}>;
+
+export default function PostCard({ post }: { post: PostWithAuthor }) {
   return (
     <div>
       <span
