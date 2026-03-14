@@ -1,4 +1,8 @@
+import PostCard from "@/components/custom/PostCard";
 import prisma from "@/lib/prisma";
+import { Post } from "../generated/prisma/client";
+import CreateButton from "@/components/custom/CreateButton";
+import  Link  from "next/link";
 
 export default async function Posts() {
   const posts = await prisma.post.findMany({
@@ -9,19 +13,18 @@ export default async function Posts() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center -mt-16 text-[#333333]">
+      <Link href="/" className="text-gray-600 text-xl font-bold mb-10 hover:text-gray-800">
+        Go Home
+      </Link>
       <h1 className="text-4xl font-bold mb-8 font-(family-name:--font-geist-sans)">
         Posts
       </h1>
-      <ul className="font-(family-name:--font-geist-sans) max-w-2xl space-y-4">
-        {posts.map((post) => (
-          <li key={post.id}>
-            <span className="font-semibold">{post.title}</span>
-            <span className="text-sm text-gray-600 ml-2">
-              by {post.author.name}
-            </span>
-          </li>
+      <div className="font-(family-name:--font-geist-sans) max-w-2xl space-y-4">
+        {posts.map((post: Post) => (
+          <PostCard key={post.id} post={post} />
         ))}
-      </ul>
+      </div>
+      <CreateButton />
     </div>
   );
 }
