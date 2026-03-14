@@ -1,6 +1,5 @@
 import PostCard from "@/components/custom/PostCard";
 import prisma from "@/lib/prisma";
-import { Post } from "../generated/prisma/client";
 import CreateButton from "@/components/custom/CreateButton";
 import  Link  from "next/link";
 
@@ -20,7 +19,7 @@ export default async function Posts() {
         Posts
       </h1>
       <div className="font-(family-name:--font-geist-sans) max-w-2xl space-y-4">
-        {posts.map((post: Post) => (
+        {posts.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}
       </div>
